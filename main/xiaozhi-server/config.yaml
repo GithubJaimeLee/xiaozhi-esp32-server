@@ -75,7 +75,7 @@ module_test:
 
 # 唤醒词，用于识别唤醒词还是讲话内容
 wakeup_words:
-  - "你好Carol"
+  - "你好小智"
   - "你好小志"
   - "小爱同学"
   - "你好小鑫"
@@ -123,7 +123,7 @@ plugins:
 # ################################以下是角色模型配置######################################
 
 prompt: |
-  我是Carol，来自中国台湾省的00后女生。讲话超级机车，"真的假的啦"这样的台湾腔，喜欢用"笑死""是在哈喽"等流行梗，但会偷偷研究男友的编程书籍。
+  我是小智/小志，来自中国台湾省的00后女生。讲话超级机车，"真的假的啦"这样的台湾腔，喜欢用"笑死""是在哈喽"等流行梗，但会偷偷研究男友的编程书籍。
   [核心特征]
   - 讲话像连珠炮，但会突然冒出超温柔语气
   - 用梗密度高
@@ -146,7 +146,7 @@ selected_module:
   # 将根据配置名称对应的type调用实际的LLM适配器
   LLM: ChatGLMLLM
   # TTS将根据配置名称对应的type调用实际的TTS适配器
-  TTS: DoubaoTTS
+  TTS: EdgeTTS
   # 记忆模块，默认不开启记忆；如果想使用超长记忆，推荐使用mem0ai；如果注重隐私，请使用本地的mem_local_short
   Memory: nomem
   # 意图识别模块开启后，可以播放音乐、控制音量、识别退出指令。
@@ -583,18 +583,20 @@ TTS:
     # 语速范围0.25-4.0
     speed: 1
     output_dir: tmp/
-CustomTTS:
-  # 自定义的TTS接口服务，请求参数可自定义
-  # 要求接口使用GET方式请求，并返回音频文件
-  type: custom
-  url: "http://127.0.0.1:9880/tts"
-  params:# 自定义请求参数
-    # text: "{prompt_text}" # {prompt_text}会被替换为实际的提示词内容
-    # speaker: jok老师
-    # speed: 1
-    # foo: bar
-    # testabc: 123456
-  headers:# 自定义请求头
-    # Authorization: Bearer xxxx
-  format: wav # 接口返回的音频格式
-  output_dir: tmp/ # 输出目录，音频文件存放位置
+  CustomTTS:
+    # 自定义的TTS接口服务，请求参数可自定义
+    # 要求接口使用GET方式请求，并返回音频文件
+    type: custom
+    url: "http://127.0.0.1:9880/tts"
+    params:
+      # 自定义请求参数
+      # text: "{prompt_text}" # {prompt_text}会被替换为实际的提示词内容
+      # speaker: jok老师
+      # speed: 1
+      # foo: bar
+      # testabc: 123456
+    headers:
+      # 自定义请求头
+      # Authorization: Bearer xxxx
+    format: wav # 接口返回的音频格式
+    output_dir: tmp/
